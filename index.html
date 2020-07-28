@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./styles.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <title>Exercise 6</title>
+</head>
+
+<body>
+    <div id="container">
+        <div id="navbar">
+            <img src="./images/0_navbar.png" alt="Navbar of My Facebook" />
+        </div>
+
+        <div id="page">
+            <!-- Side bar for listStories-->
+            <div id="listStories">
+                <div id="listStories-titleBar">
+                    <h1>Stories</h1>
+                    <div id="titleBar-button">
+                        <a href="#">Archive</a>
+                        <a href="#">Settings</a>
+                    </div>
+                </div>
+                <div id="listStories-yourStory">
+                    <p class="story-title">Your Story</p>
+                    <div id="story0" class="storyItem itemFocus" onclick="changeStory(0)">
+                        <div class="story-itemAvatar storySeen">
+                            <img class="story-avatar" src="./images/avatar/0.png" alt="My Avatar" />
+                        </div>
+                        <div class="story-itemInfo">
+                            <p class="itemInfo-name">Nam Tran</p>
+                            <div class="itemInfo-detail">
+                                <p class="itemInfo-detailQuantity">1 new</p>
+                                <p class="itemInfo-detailTime">&nbsp;&#183; 2h</p>
+                            </div>
+                        </div>
+                        <div id="story-itemButton"><span>&#43;</span></div>
+                    </div>
+                </div>
+                <div id="listStories-allStories">
+                    <p class="story-title">All Stories</p>
+                    <div id="allStories-items">
+                        <div class="storyItem">
+                            <div class="story-itemAvatar">
+                                <img class="story-avatar" src="" alt="" />
+                            </div>
+                            <div class="story-itemInfo">
+                                <p class="itemInfo-name"></p>
+                                <div class="itemInfo-detail">
+                                    <p class="itemInfo-detailQuantity"></p>
+                                    <p class="itemInfo-detailTime"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main screen for mainStory -->
+            <div id="mainStory">
+                <!-- <div id="mainStory-background">
+                    <img src="./images/news/smile.png" alt="News Background" />
+                </div> -->
+                <div id="mainStory-backgroundBlack"></div>
+                <div id="mainStory-content">
+                    <div id="content-numberOfNews">
+                        <div class="numberOfNews-bar"></div>
+                    </div>
+                    <div id="content-loadingBars">
+                        <div class="numberOfNews-bar"></div>
+                    </div>
+                    <div id="content-info">
+                        <div id="info-avatar">
+                            <img id="avatar" src="./images/avatar/0.png" alt="Avatar" />
+                        </div>
+                        <div id="info-detail">
+                            <p id="name">Nam Tran</p>
+                        </div>
+                        <div id="info-button">
+                            <div id="button">&#8943;</div>
+                        </div>
+                    </div>
+                    <div id="content-main">
+                        <img id="main-image" src="./images/news/smile.png" alt="News" />
+                    </div>
+                </div>
+                <div id="mainStory-reactionBar">
+                    <img class="reactionBar-button" src="./images/reaction/1.gif" alt="Like" />
+                    <img class="reactionBar-button" src="./images/reaction/2.gif" alt="Love" />
+                    <img class="reactionBar-button" src="./images/reaction/3.gif" alt="Wow" />
+                    <img class="reactionBar-button" src="./images/reaction/4.gif" alt="Haha" />
+                    <img class="reactionBar-button" src="./images/reaction/5.gif" alt="Cry" />
+                    <img class="reactionBar-button" src="./images/reaction/6.gif" alt="Angry" />
+                </div>
+                <div id="mainStory-navigation">
+                    <a id="goBackward" class="navigation-button" onclick="move(-1)">&#10094;</a>
+                    <a id="goForward" class="navigation-button" onclick="move(1)">&#10095;</a>
+                </div>
+                <div id="mainStory-close">
+                    <a id="closeButton" onclick="">&#10799;</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,381 @@
+* {
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    height: 100vh;
+    margin: 0;
+}
+
+h1,
+p {
+    margin: 0;
+}
+
+#container {
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+#navbar img {
+    width: 100%;
+}
+
+#page {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+}
+
+#listStories {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 0px 10px;
+}
+
+#listStories-titleBar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 5px;
+    font-size: 14px;
+}
+
+#listStories-titleBar h1 {
+    font-size: 22px;
+    font-weight: 600;
+}
+
+#titleBar-button a {
+    color: #1876f2;
+    text-decoration: none;
+    font-weight: 300;
+}
+
+#titleBar-button a:first-child::after {
+    content: " .";
+    color: black;
+}
+
+#listStories-yourStory {
+    margin: 5px 0px 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 14px;
+    color: rgb(82, 82, 82);
+}
+
+.story-title {
+    padding: 0px 5px;
+    font-weight: 500;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.storyItem {
+    padding: 8px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: row;
+}
+
+.storyItem:hover {
+    cursor: pointer;
+    background-color: rgb(0, 0, 0, 0.1);
+}
+
+.itemFocus {
+    background-color: rgb(0, 0, 0, 0.1);
+}
+
+.story-itemAvatar {
+    height: 50px;
+    width: 50px;
+    padding: 2px;
+    border: 3px solid #1876f2;
+    border-radius: 50%;
+    margin-right: 15px;
+    flex-grow: 0;
+}
+
+.storySeen {
+    border: 3px solid #ced0d4;
+}
+
+.story-avatar {
+    width: 50px;
+    border-radius: 50%;
+}
+
+.story-itemInfo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-grow: 1;
+}
+
+.itemInfo-name {
+    font-weight: 500;
+    color: black;
+}
+
+.itemInfo-detail {
+    display: flex;
+    flex-direction: row;
+}
+
+.itemInfo-detailQuantity {
+    color: #1876f2;
+}
+
+.itemInfo-detailTime {
+    color: #65676B;
+}
+
+#story-itemButton {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 5px 0px;
+    width: 50px;
+    border-radius: 50%;
+    font-size: 30px;
+    font-weight: 200;
+    color: #1876f2;
+    background-color: rgb(232, 241, 255);
+}
+
+#story-itemButton:hover {
+    cursor: pointer;
+}
+
+#listStories-allStories {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 14px;
+    color: rgb(82, 82, 82);
+}
+
+#allStories-items {
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    height: calc(100vh - 265px);
+}
+
+#allStories-items::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    background-color: #F5F5F5;
+}
+
+#allStories-items::-webkit-scrollbar {
+    width: 8px;
+    height: 10px;
+    background-color: #F5F5F5;
+}
+
+#allStories-items::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+    background-color: #acacac;
+}
+
+#mainStory {
+    flex-grow: 4;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 200px;
+    position: relative;
+    height: calc(100vh - 70px);
+}
+
+#mainStory-background {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    z-index: -2;
+}
+
+#mainStory-background img {
+    display: block;
+    width: fit-content;
+    height: 100%;
+    width: 100%;
+}
+
+#mainStory-backgroundBlack {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    z-index: -1;
+    background-color: rgb(0, 0, 0, 0.5)
+}
+
+#mainStory-content {
+    position: relative;
+}
+
+#content-numberOfNews {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    margin-top: 10px;
+    width: 100%;
+}
+
+.numberOfNews-bar {
+    height: 5px;
+    background-color: rgb(255, 255, 255, 0.5);
+    border-radius: 10px;
+    z-index: 1;
+    margin: 0px 15px;
+    flex-grow: 1;
+}
+
+#content-loadingBars {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    margin-top: 10px;
+}
+
+.loading-bar {
+    height: 5px;
+    background-color: #fff;
+    border-radius: 10px;
+    z-index: 1;
+    margin: 0px 15px;
+    flex-grow: 1;
+}
+
+#content-info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    position: absolute;
+    margin-top: 30px;
+    width: 100%;
+}
+
+#info-avatar {
+    height: 40px;
+    flex-grow: 0;
+    padding-left: 20px;
+}
+
+#avatar {
+    width: 40px;
+    border-radius: 50%;
+}
+
+#info-detail {
+    font-size: 12px;
+    color: #fff;
+    flex-grow: 3;
+    padding-left: 10px;
+}
+
+#info-button {
+    padding-right: 20px;
+    font-weight: 500;
+    color: #fff;
+}
+
+#info-button:hover {
+    cursor: pointer;
+}
+
+#content-main {
+    width: 400px;
+    border-radius: 50%;
+}
+
+#main-image {
+    width: 100%;
+    border-radius: 10px;
+}
+
+#mainStory-reactionBar {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.reactionBar-button {
+    margin: 0 5px;
+    width: 40px;
+    border-radius: 50%;
+}
+
+.reactionBar-button:hover {
+    cursor: pointer;
+}
+
+#mainStory-navigation {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+    width: 550px;
+}
+
+.navigation-button {
+    font-size: 30px;
+    font-weight: 200;
+    width: 45px;
+    text-align: center;
+    border-radius: 50%;
+    background-color: #fff;
+    color: #000;
+}
+
+#mainStory-navigation:hover {
+    cursor: pointer;
+}
+
+#mainStory-close {
+    position: absolute;
+    top: 0px;
+    right: 25px;
+    font-size: 30px;
+    color: white;
+}
+
+#mainStory-close:hover {
+    cursor: pointer;
+}
+
+.animationMainStory {
+    -webkit-animation-name: fade 0.5s;
+    animation: fade 0.5s;
+}
+
+@-webkit-keyframes fade {
+    from {
+        opacity: .4
+    }
+    to {
+        opacity: 1
+    }
+}
+
+@keyframes fade {
+    from {
+        opacity: .4
+    }
+    to {
+        opacity: 1
+    }
+}
