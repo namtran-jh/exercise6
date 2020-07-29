@@ -167,7 +167,7 @@ function setDocumentStory(story, step) {
 
 // Function move forward or backward
 function move(n) {
-    if (accountGlobal.news.length === storyGlobal.id) {
+    if (accountGlobal.news.length === storyGlobal.id && n === 1) {
         changeStory(accountGlobal.id + 1, 1);
     } else {
         changeStory(accountGlobal.id, storyGlobal.id + n);
