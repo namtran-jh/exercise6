@@ -74,7 +74,8 @@ function timeDisplay(time) {
 function changeStory(id, order) {
     let tmp = {};
     let step = 0;
-    document.getElementsByClassName("itemFocus")[0].classList.remove("itemFocus");
+    let itemFocus = document.getElementsByClassName("itemFocus")
+    if (itemFocus.length !== 0) itemFocus[0].classList.remove("itemFocus");
 
     data.some(val => {
         if (val.id === id) {
@@ -90,12 +91,14 @@ function changeStory(id, order) {
         }
     })
 
-    document.getElementById("mainStory-hide").style.zIndex = "-3";
+    if (tmp.id == null) { closeStory() } else {
+        document.getElementById("mainStory-hide").style.zIndex = "-3";
 
-    setAnimation();
-    setGlobal(tmp, step);
-    setDocumentStory(tmp, step);
-    start(step);
+        setAnimation();
+        setGlobal(tmp, step);
+        setDocumentStory(tmp, step);
+        start(step);
+    }
 }
 
 // Function set animation story
