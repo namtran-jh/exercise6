@@ -5,39 +5,43 @@ const accountGlobal = {};
 const storyGlobal = {};
 
 let mode, loadingBar;
-const modeSwitch = { type: 0 };
+const stopMode = 0;
+const startMode = 1;
+const modeSwitch = { type: stopMode };
 
 // Initial data for all stories
 data.forEach(val => {
     // yourStory
     if (val.id === 0) {
-        yourStory += '<div class="story-itemAvatar">';
-        yourStory += '<img class="story-avatar" src="' + val.avatar + '" alt="My Avatar" />';
-        yourStory += '</div>';
-        yourStory += '<div class="story-itemInfo">';
-        yourStory += '<p class="itemInfo-name">' + val.name + '</p>';
-        yourStory += '<div class="itemInfo-detail">';
-        yourStory += '<p class="itemInfo-detailQuantity">' + val.news.length + ' new' + '</p>';
-        yourStory += '<p class="itemInfo-detailTime">' + '&nbsp;&#183; ' + timeDisplay(val.time) + '</p>';
-        yourStory += '</div>';
-        yourStory += '</div>';
-        yourStory += '<div id="story-itemButton"><span>&#43;</span></div>';
+        yourStory = `
+        <div class="story-itemAvatar">
+            <img class="story-avatar" src="${val.avatar}" alt="My Avatar" />
+        </div>
+        <div class="story-itemInfo">
+            <p class="itemInfo-name"> ${val.name} </p>
+            <div class="itemInfo-detail">
+                <p class="itemInfo-detailQuantity"> ${val.news.length} new </p>
+                <p class="itemInfo-detailTime"> &nbsp;&#183; ${timeDisplay(val.time)} </p>
+            </div>
+        </div>
+        <div id="story-itemButton"><span>&#43;</span></div>`;
         return;
     }
 
     // allStories
-    allStories += '<div id="story' + val.id + '" class="storyItem" onclick="changeStory(' + val.id + ')">';
-    allStories += '<div class="story-itemAvatar">';
-    allStories += '<img class="story-avatar" src="' + val.avatar + '" alt="' + val.name + ' avatar" />';
-    allStories += '</div>';
-    allStories += '<div class="story-itemInfo">';
-    allStories += '<p class="itemInfo-name">' + val.name + '</p>';
-    allStories += '<div class="itemInfo-detail">';
-    allStories += '<p class="itemInfo-detailQuantity">' + val.news.length + ' new' + '</p>';
-    allStories += '<p class="itemInfo-detailTime">' + '&nbsp;&#183; ' + timeDisplay(val.time) + '</p>';
-    allStories += '</div>';
-    allStories += '</div>';
-    allStories += '</div>';
+    allStories += `
+    <div id="story${val.id}" class="storyItem" onclick="changeStory(${val.id})">
+        <div class="story-itemAvatar">
+            <img class="story-avatar" src="${val.avatar}" alt="${val.name} avatar" />
+        </div>
+        <div class="story-itemInfo">
+            <p class="itemInfo-name"> ${val.name} </p>
+            <div class="itemInfo-detail">
+                <p class="itemInfo-detailQuantity"> ${val.news.length} new </p>
+                <p class="itemInfo-detailTime"> &nbsp;&#183; ${timeDisplay(val.time)} </p>
+            </div>
+        </div>
+    </div>`;
 })
 
 document.getElementById("story0").innerHTML = yourStory;
@@ -51,19 +55,27 @@ data.forEach(val => {
 
 function timeDisplay(time) {
     const tiktak = Math.round((new Date() - new Date(time)) / 1000);
-    let hour = 0,
+    let day = 0,
+        hour = 0,
         minute = 0,
         second = 0;
 
     if (tiktak >= 60) {
         minute = Math.floor(tiktak / 60);
         second = Math.round(tiktak % 60);
-        if (minute >= 60) {
-            hour = Math.floor(minute / 60);
-            minute = Math.round(minute % 60);
-            return hour + "h " + minute + "m ";
+        hour = Math.floor(minute / 60);
+        if (hour >= 24) {
+            day = Math.floor(hour / 24);
+            hour = Math.round(hour % 24);
+            return day + "d " + hour + "h ";
         } else {
-            return minute + "m " + second + "s";
+            if (minute >= 60) {
+                hour = Math.floor(minute / 60);
+                minute = Math.round(minute % 60);
+                return hour + "h " + minute + "m ";
+            } else {
+                return minute + "m " + second + "s";
+            }
         }
     } else {
         return tiktak + "s";
@@ -134,7 +146,7 @@ function setDocumentStory(story, step) {
     let numberOfNews = "";
     let loadingBars = "";
     story.news.forEach(val => numberOfNews += '<div class="numberOfNews-bar"></div>');
-    story.news.forEach(val => loadingBars += '<div id="loading' + val.id + '" class="loading-bar"></div>');
+    story.news.forEach(val => loadingBars += `<div id="loading${val.id}" class="loading-bar"><div class="loadingBar-bg"></div></div>`);
     document.getElementById("content-numberOfNews").innerHTML = numberOfNews;
     document.getElementById("content-loading").innerHTML = loadingBars;
 
@@ -176,7 +188,7 @@ function move(n) {
         changeStory(accountGlobal.id, storyGlobal.id + n);
     }
 
-    if (modeSwitch.type === 1) start();
+    if (modeSwitch.type === startMode) start();
 }
 
 // Function close story
@@ -187,7 +199,7 @@ function closeStory() {
 
 // Function stop auto
 function stop() {
-    modeSwitch.type = 0;
+    modeSwitch.type = stopMode;
     clearInterval(mode);
     clearInterval(loadingBar);
 }
@@ -195,7 +207,7 @@ function stop() {
 // Function auto
 function start() {
     clearInterval(mode);
-    modeSwitch.type = 1;
+    modeSwitch.type = startMode;
     // let tmp = mainImage.id
     mode = setInterval(function() {
         move(1);
@@ -204,11 +216,14 @@ function start() {
     clearInterval(loadingBar);
     let width = 0;
     loadingBar = setInterval(function() {
-        if (width == 90) {
+        for (let i = 1; i < storyGlobal.id; i++) {
+            document.getElementById("loading" + i).getElementsByClassName("loadingBar-bg")[0].style.width = '100%';
+        }
+        if (width == 100) {
             clearInterval(loadingBar);
         } else {
             width++;
-            document.getElementById("content-loading").style.width = width + '%';
+            document.getElementById("loading" + storyGlobal.id).getElementsByClassName("loadingBar-bg")[0].style.width = width + '%';
         }
     }, 50)
 }

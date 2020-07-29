@@ -12,7 +12,7 @@ const data = [{
 }, {
     id: 1,
     name: "Uzumaki Naruto",
-    time: "Tue Jul 28 2020 14:00:00 GMT+0700 (Indochina Time)",
+    time: "Tue Jul 29 2020 14:00:00 GMT+0700 (Indochina Time)",
     avatar: "./images/avatar/1.png",
     news: [{
         id: 1,
@@ -57,7 +57,7 @@ const data = [{
 }, {
     id: 4,
     name: "Sandaime Raikage",
-    time: "Tue Jul 28 2020 13:50:30 GMT+0700 (Indochina Time)",
+    time: "Tue Jul 26 2020 13:50:30 GMT+0700 (Indochina Time)",
     avatar: "./images/avatar/4.png",
     news: [{
         id: 1,
@@ -79,7 +79,7 @@ const data = [{
 }, {
     id: 6,
     name: "Namekage Minato",
-    time: "Tue Jul 28 2020 08:25:45 GMT+0700 (Indochina Time)",
+    time: "Tue Jul 27 2020 08:25:45 GMT+0700 (Indochina Time)",
     avatar: "./images/avatar/6.png",
     news: [{
         id: 1,
@@ -113,7 +113,7 @@ const data = [{
 }, {
     id: 8,
     name: "Hozuki Gengetsu",
-    time: "Tue Jul 28 2020 10:45:15 GMT+0700 (Indochina Time)",
+    time: "Tue Jul 29 2020 10:45:15 GMT+0700 (Indochina Time)",
     avatar: "./images/avatar/8.png",
     news: [{
         id: 1,
@@ -135,7 +135,7 @@ const data = [{
 }, {
     id: 10,
     name: "Tirsen Kazekage",
-    time: "Tue Jul 28 2020 13:30:30 GMT+0700 (Indochina Time)",
+    time: "Tue Jul 29 2020 13:30:30 GMT+0700 (Indochina Time)",
     avatar: "./images/avatar/10.png",
     news: [{
         id: 1,

@@ -271,16 +271,22 @@ p {
     position: absolute;
     margin-top: 10px;
     left: 5%;
-    width: 0%;
+    width: 90%;
 }
 
 .loading-bar {
     height: 5px;
-    background-color: #fff;
     border-radius: 10px;
     z-index: 1;
     margin: 0px 1px;
     flex-grow: 1;
+}
+
+.loadingBar-bg {
+    width: 0%;
+    height: 5px;
+    border-radius: 10px;
+    background-color: #fff;
 }
 
 #content-info {
