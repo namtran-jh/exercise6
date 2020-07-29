@@ -62,16 +62,20 @@
 
             <!-- Main screen for mainStory -->
             <div id="mainStory">
-                <!-- <div id="mainStory-background">
+                <div id="mainStory-hide">
+                    <p>&#10803;</p>
+                    <h1>Select someone's story to view</h1>
+                </div>
+                <div id="mainStory-background">
                     <img src="./images/news/smile.png" alt="News Background" />
-                </div> -->
+                </div>
                 <div id="mainStory-backgroundBlack"></div>
                 <div id="mainStory-content">
                     <div id="content-numberOfNews">
                         <div class="numberOfNews-bar"></div>
                     </div>
-                    <div id="content-loadingBars">
-                        <div class="numberOfNews-bar"></div>
+                    <div id="content-loading">
+                        <div id="loading" class="loading-bar"></div>
                     </div>
                     <div id="content-info">
                         <div id="info-avatar">
@@ -101,7 +105,7 @@
                     <a id="goForward" class="navigation-button" onclick="move(1)">&#10095;</a>
                 </div>
                 <div id="mainStory-close">
-                    <a id="closeButton" onclick="">&#10799;</a>
+                    <a id="closeButton" onclick="closeStory()">&#10799;</a>
                 </div>
             </div>
         </div>

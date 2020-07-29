@@ -90,10 +90,12 @@ function changeStory(id, order) {
         }
     })
 
+    document.getElementById("mainStory-hide").style.zIndex = "-3";
+
     setAnimation();
     setGlobal(tmp, step);
     setDocumentStory(tmp, step);
-    start();
+    start(step);
 }
 
 // Function set animation story
@@ -129,9 +131,9 @@ function setDocumentStory(story, step) {
     let numberOfNews = "";
     let loadingBars = "";
     story.news.forEach(val => numberOfNews += '<div class="numberOfNews-bar"></div>');
-    story.news.forEach(val => loadingBars += '<div class="loading-bar"></div>');
+    story.news.forEach(val => loadingBars += '<div id="loading' + val.id + '" class="loading-bar"></div>');
     document.getElementById("content-numberOfNews").innerHTML = numberOfNews;
-    document.getElementById("content-loadingBars").innerHTML = loadingBars;
+    document.getElementById("content-loading").innerHTML = loadingBars;
 
     // info
     document.getElementById("avatar").src = story.avatar;
@@ -166,17 +168,25 @@ function setDocumentStory(story, step) {
 // Function move forward or backward
 function move(n) {
     if (accountGlobal.news.length === storyGlobal.id) {
-        changeStory(accountGlobal.id + 1, 1)
+        changeStory(accountGlobal.id + 1, 1);
     } else {
         changeStory(accountGlobal.id, storyGlobal.id + n);
     }
+
     if (modeSwitch.type === 1) start();
+}
+
+// Function close story
+function closeStory() {
+    stop();
+    document.getElementById("mainStory-hide").style.zIndex = "3";
 }
 
 // Function stop auto
 function stop() {
     modeSwitch.type = 0;
     clearInterval(mode);
+    clearInterval(loadingBar);
 }
 
 // Function auto
@@ -186,20 +196,18 @@ function start() {
     // let tmp = mainImage.id
     mode = setInterval(function() {
         move(1);
-
     }, 5000)
 
+    clearInterval(loadingBar);
     let width = 0;
-    loadingBar = setInterval(frame, 5);
-
-    function frame() {
-        if (width == 100) {
+    loadingBar = setInterval(function() {
+        if (width == 90) {
             clearInterval(loadingBar);
         } else {
             width++;
-            document.getElementById("content-loadingBars").style.width = width + '%';
+            document.getElementById("content-loading").style.width = width + '%';
         }
-    }
+    }, 50)
 }
 
 document.getElementById("mainStory-reactionBar").onclick = function() {
