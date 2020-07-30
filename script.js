@@ -209,6 +209,7 @@ function setDocumentStory(story, step) {
 
     // main
     document.getElementById("main-image").src = story.news[step].link;
+    document.getElementById("mainStory-background").getElementsByTagName("img")[0].src = story.news[step].link;
 
     // navigation
     if (story.news.length === 1) {
