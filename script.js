@@ -131,6 +131,7 @@ function changeStory(id, order) {
         if (val.id === id) {
             if (val.status === 1) tmp = val;
             else tmp = data[id + 1];
+            if (tmp === undefined) tmp = { id: null };
             val.news.some((val, index) => {
                 if (val.id === order) {
                     step = index;
