@@ -144,7 +144,8 @@ function changeStory(id, order) {
 
     if (tmp.id != null && tmp.bug.status === 1) {
         setGlobal(tmp, step);
-        document.getElementById("hidenValue").value = accountGlobal.id;
+        // document.getElementById("hidenValue").value = accountGlobal.id;
+        document.getElementById("bugWarning").setAttribute("data-myattr-bugstory", accountGlobal.id);
         document.getElementById("bugWarning").style.display = "flex";
         stop();
     } else {
@@ -358,6 +359,8 @@ function storyMenuReport() {
     })
     document.getElementById(`story${accountGlobal.id}-itemBug`).style.display = "flex";
     document.getElementById(`story${accountGlobal.id}`).getElementsByClassName("story-itemAvatar")[0].classList.add("storyBug");
+
+    changeStory(accountGlobal.id + 1, 1);
 }
 
 // Function hide story
@@ -381,7 +384,8 @@ function cancelBtn() {
     document.getElementById("bugWarning").style.display = "none";
     document.getElementById("hideWarning").style.display = "none";
 
-    let id = parseInt(document.getElementById("hidenValue").value);
+    // let id = parseInt(document.getElementById("hidenValue").value);
+    let id = parseInt(document.getElementById("bugWarning").getAttribute("data-myattr-bugstory"));
     if (data[id].bug.status === 1) {
         changeStory(id + 1, 1);
     } else {
@@ -393,7 +397,8 @@ function cancelBtn() {
 function confirmView() {
     document.getElementById("bugWarning").style.display = "none";
 
-    let id = parseInt(document.getElementById("hidenValue").value);
+    // let id = parseInt(document.getElementById("hidenValue").value);
+    let id = parseInt(document.getElementById("bugWarning").getAttribute("data-myattr-bugstory"));
     if (data[id].bug.status === 1) {
         data[id].bug.status = 0;
         changeStory(id, 1);
