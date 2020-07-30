@@ -316,7 +316,13 @@ function reassignWidth() {
 }
 
 // Catch onClick event of showing story
-document.getElementById("content-main").onclick = function() { start(); }
+document.getElementById("content-main").onclick = function() {
+    if (storyMenu.button) {
+        storyMenu.button = !storyMenu.button;
+        document.getElementById("storyMenu").style.display = "none";
+    }
+    start();
+}
 
 // Function change source image when hover
 function hoverReaction(element) {
