@@ -1,19 +1,26 @@
+// Variables for holding string (innerHTML of) each story
 let yourStory = "";
 let allStories = "";
 
+// Variables for current state (which account/story)
 const accountGlobal = {};
 const storyGlobal = {};
 
-let mode, loadingBar;
+// Variables for setInterval
+let modeInterval, loadingBarInterval;
 const stopMode = 0;
 const startMode = 1;
 const modeSwitch = { type: stopMode };
 
+// Variables for story menu
+const storyMenu = { button: false };
+
 // Initial data for all stories
-data.forEach(val => {
-    // yourStory
-    if (val.id === 0) {
-        yourStory = `
+function addInnerHTMLUI() {
+    data.forEach(val => {
+        // yourStory
+        if (val.id === 0) {
+            yourStory = `
         <div class="story-itemAvatar">
             <img class="story-avatar" src="${val.avatar}" alt="My Avatar" />
         </div>
@@ -25,34 +32,61 @@ data.forEach(val => {
             </div>
         </div>
         <div id="story-itemButton"><span>&#43;</span></div>`;
-        return;
-    }
+            return;
+        }
 
-    // allStories
-    allStories += `
-    <div id="story${val.id}" class="storyItem" onclick="changeStory(${val.id})">
-        <div class="story-itemAvatar">
-            <img class="story-avatar" src="${val.avatar}" alt="${val.name} avatar" />
-        </div>
-        <div class="story-itemInfo">
-            <p class="itemInfo-name"> ${val.name} </p>
-            <div class="itemInfo-detail">
-                <p class="itemInfo-detailQuantity"> ${val.news.length} new </p>
-                <p class="itemInfo-detailTime"> &nbsp;&#183; ${timeDisplay(val.time)} </p>
+        if (val.status === 0) { return } else {
+            // allStories
+            allStories += `
+        <div id="story${val.id}" class="storyItem" onclick="changeStory(${val.id})">
+            <div class="story-itemAvatar">
+                <img class="story-avatar" src="${val.avatar}" alt="${val.name} avatar" />
             </div>
-        </div>
-    </div>`;
-})
+            <div class="story-itemInfo">
+                <p class="itemInfo-name"> ${val.name} </p>
+                <div class="itemInfo-detail">
+                    <p class="itemInfo-detailQuantity"> ${val.news.length} new </p>
+                    <p class="itemInfo-detailTime"> &nbsp;&#183; ${timeDisplay(val.time)} </p>
+                </div>
+            </div>
+            <div id="story${val.id}-itemBug" class="story-itemBug"><img src="./images/icon/realbug.png" alt="Real bug" title="This story is bug"/></div>
+        </div>`;
+        }
+    })
+}
 
-document.getElementById("story0").innerHTML = yourStory;
-document.getElementById("allStories-items").innerHTML = allStories;
+// Set innerHTML for list of stories
+function renderUI() {
+    document.getElementById("story0").innerHTML = yourStory;
+    document.getElementById("allStories-items").innerHTML = allStories;
+}
 
+// Render UI
+addInnerHTMLUI();
+renderUI();
+
+// Function restart UI
+function restartUI() {
+    allStories = "";
+    addInnerHTMLUI();
+    renderUI();
+
+    data.forEach(val => {
+        if (val.bug.initial === 1) {
+            document.getElementById(`story${val.id}-itemBug`).style.display = "flex";
+            document.getElementById(`story${val.id}`).getElementsByClassName("story-itemAvatar")[0].classList.add("storyBug");
+        }
+    })
+}
+
+// Set css greyBorder to story which is seen
 data.forEach(val => {
     if (val.status === 0) {
         document.getElementById("story" + val.id).getElementsByClassName("story-itemAvatar")[0].classList.add("storySeen");
     }
 })
 
+// Function display time of story
 function timeDisplay(time) {
     const tiktak = Math.round((new Date() - new Date(time)) / 1000);
     let day = 0,
@@ -88,10 +122,13 @@ function changeStory(id, order) {
     let step = 0;
     let itemFocus = document.getElementsByClassName("itemFocus")
     if (itemFocus.length !== 0) itemFocus[0].classList.remove("itemFocus");
+    if (storyMenu.button) {
+        storyMenu.button = !storyMenu.button;
+        document.getElementById("storyMenu").style.display = "none";
+    }
 
     data.some(val => {
         if (val.id === id) {
-            val.status = 0;
             tmp = val;
             val.news.some((val, index) => {
                 if (val.id === order) {
@@ -103,13 +140,23 @@ function changeStory(id, order) {
         }
     })
 
-    if (tmp.id == null) { closeStory() } else {
-        document.getElementById("mainStory-hide").style.zIndex = "-3";
-
-        setAnimation();
+    if (tmp.bug.status === 1) {
         setGlobal(tmp, step);
-        setDocumentStory(tmp, step);
-        start(step);
+        document.getElementById("hidenValue").value = accountGlobal.id;
+        document.getElementById("bugWarning").style.display = "flex";
+        stop();
+    } else {
+        if (tmp.id === 0) document.getElementById("info-button").style.display = "none";
+        else document.getElementById("info-button").style.display = "block";
+
+        if (tmp.id == null) { closeStory() } else {
+            document.getElementById("mainStory-hide").style.zIndex = "-3";
+
+            setAnimation();
+            setGlobal(tmp, step);
+            setDocumentStory(tmp, step);
+            // start(step);
+        }
     }
 }
 
@@ -129,6 +176,7 @@ function setGlobal(story, step) {
     accountGlobal.avatar = story.avatar;
     accountGlobal.news = story.news;
     accountGlobal.status = story.status;
+    accountGlobal.bug = story.bug;
 
     storyGlobal.id = story.news[step].id;
     storyGlobal.link = story.news[step].link;
@@ -180,7 +228,7 @@ function setDocumentStory(story, step) {
     }
 }
 
-// Function move forward or backward
+// Function move forward or backward (navigation)
 function move(n) {
     if (accountGlobal.news.length === storyGlobal.id && n === 1) {
         changeStory(accountGlobal.id + 1, 1);
@@ -200,27 +248,27 @@ function closeStory() {
 // Function stop auto
 function stop() {
     modeSwitch.type = stopMode;
-    clearInterval(mode);
-    clearInterval(loadingBar);
+    clearInterval(modeInterval);
+    clearInterval(loadingBarInterval);
 }
 
 // Function auto
 function start() {
-    clearInterval(mode);
+    clearInterval(modeInterval);
     modeSwitch.type = startMode;
     // let tmp = mainImage.id
-    mode = setInterval(function() {
+    modeInterval = setInterval(function() {
         move(1);
     }, 5000)
 
-    clearInterval(loadingBar);
+    clearInterval(loadingBarInterval);
     let width = 0;
-    loadingBar = setInterval(function() {
+    loadingBarInterval = setInterval(function() {
         for (let i = 1; i < storyGlobal.id; i++) {
             document.getElementById("loading" + i).getElementsByClassName("loadingBar-bg")[0].style.width = '100%';
         }
         if (width == 100) {
-            clearInterval(loadingBar);
+            clearInterval(loadingBarInterval);
         } else {
             width++;
             document.getElementById("loading" + storyGlobal.id).getElementsByClassName("loadingBar-bg")[0].style.width = width + '%';
@@ -228,12 +276,122 @@ function start() {
     }, 50)
 }
 
-document.getElementById("mainStory-reactionBar").onclick = function() {
-    stop();
+// Catch onClick event
+document.getElementById("mainStory-reactionBar").onclick = function() { stop(); }
+document.getElementById("content-main").onclick = function() { start(); }
+
+// Function change source image when hover
+function hoverReaction(element) {
+    element.setAttribute("src", `./images/reaction/${element.title}.gif`);
+}
+// Function change source image when unhover
+function unhoverReaction(element) {
+    element.setAttribute("src", `./images/reaction/${element.title}.png`);
 }
 
-document.getElementById("mainStory-content").onclick = function() {
+// Function onClick on a story menu
+function storyMenuClick() {
+    storyMenu.button = !storyMenu.button;
+    if (storyMenu.button === true) {
+        stop();
+        document.getElementById("storyMenu").style.display = "block";
+    } else {
+        start();
+        document.getElementById("storyMenu").style.display = "none";
+    }
+}
+
+// Function report bug of story
+function storyMenuReport() {
+    storyMenuClick();
+    if (accountGlobal.id === 0) return;
+    data.forEach((val, index) => {
+        if (val.id === accountGlobal.id) {
+            data[index].bug.status = 1;
+            data[index].bug.initial = 1;
+            return;
+        }
+    })
+    document.getElementById(`story${accountGlobal.id}-itemBug`).style.display = "flex";
+    document.getElementById(`story${accountGlobal.id}`).getElementsByClassName("story-itemAvatar")[0].classList.add("storyBug");
+}
+
+// Function hide story
+function storyMenuHide() {
+    storyMenuClick();
+    stop();
+    document.getElementById("hideWarning").style.display = "flex";
+}
+
+// Onclick all mainStory reactionBar
+document.getElementById("mainStory-reactionBar").onclick = function() {
+    if (storyMenu.button) {
+        storyMenu.button = !storyMenu.button;
+        document.getElementById("storyMenu").style.display = "none";
+    }
     start();
 }
 
+// Onclick cancel notification box
+function cancelBtn() {
+    document.getElementById("bugWarning").style.display = "none";
+    document.getElementById("hideWarning").style.display = "none";
+
+    let id = parseInt(document.getElementById("hidenValue").value);
+    if (data[id].bug.status === 1) {
+        stop();
+    } else {
+        start();
+    }
+}
+
+// Onclick confirm view though the story is bug
+function confirmView() {
+    document.getElementById("bugWarning").style.display = "none";
+
+    let id = parseInt(document.getElementById("hidenValue").value);
+    if (data[id].bug.status === 1) {
+        data[id].bug.status = 0;
+        changeStory(id, 1);
+    } else {
+        start()
+    }
+}
+
+// Onclick confirm hide the story
+function confirmHide() {
+    document.getElementById("hideWarning").style.display = "none";
+    data[accountGlobal.id].status = 0;
+    restartUI();
+    changeStory(accountGlobal.id + 1, 1);
+}
+
+// Function handle story' reactions
+document.getElementById("likeReaction").onclick = function() { storyReaction("like") }
+document.getElementById("loveReaction").onclick = function() { storyReaction("love") }
+document.getElementById("hahaReaction").onclick = function() { storyReaction("haha") }
+document.getElementById("wowReaction").onclick = function() { storyReaction("wow") }
+document.getElementById("cryReaction").onclick = function() { storyReaction("cry") }
+document.getElementById("angryReaction").onclick = function() { storyReaction("angry") }
+
+function storyReaction(str) {
+    let top = Math.floor(Math.random() * 500);
+    let left = Math.floor(Math.random() * 300);
+    let react = document.createElement("img");
+    react.classList.add("reactionBar-button");
+    react.classList.add("random-position");
+    if (top < 50) react.style.top = `70px`;
+    else react.style.top = `${top}px`;
+    react.style.left = `${left}px`;
+    react.src = `./images/reaction/${str}.gif`;
+    console.log(react.style.top)
+    document.getElementById("mainStory-content").appendChild(react);
+    setTimeout(function() {
+        if (document.getElementsByClassName("reactionBar-button").length > 0) {
+            document.getElementsByClassName("reactionBar-button")[0].remove();
+        }
+    }, 1000)
+}
+
+// Start my own story at first time loading
 changeStory(0, 1);

@@ -85,7 +85,11 @@
                             <p id="name">Nam Tran</p>
                         </div>
                         <div id="info-button">
-                            <div id="button">&#8943;</div>
+                            <div id="button" onclick="storyMenuClick()">&#8943;</div>
+                            <ul id="storyMenu">
+                                <li onclick="storyMenuHide()"><img src="./images/icon/hide.png" alt="Hide this story" /><span>Hide this story</span></li>
+                                <li onclick="storyMenuReport()"><img src="./images/icon/bug.png" alt="Something isn't working" /><span>Something isn't working</span></li>
+                            </ul>
                         </div>
                     </div>
                     <div id="content-main">
@@ -93,12 +97,12 @@
                     </div>
                 </div>
                 <div id="mainStory-reactionBar">
-                    <img class="reactionBar-button" src="./images/reaction/1.gif" alt="Like" />
-                    <img class="reactionBar-button" src="./images/reaction/2.gif" alt="Love" />
-                    <img class="reactionBar-button" src="./images/reaction/3.gif" alt="Wow" />
-                    <img class="reactionBar-button" src="./images/reaction/4.gif" alt="Haha" />
-                    <img class="reactionBar-button" src="./images/reaction/5.gif" alt="Cry" />
-                    <img class="reactionBar-button" src="./images/reaction/6.gif" alt="Angry" />
+                    <img id="likeReaction" class="reactionBar-button" src="./images/reaction/like.png" alt="Like" title="like" onmouseover="hoverReaction(this);" onmouseout="unhoverReaction(this);" />
+                    <img id="loveReaction" class="reactionBar-button" src="./images/reaction/love.png" alt="Love" title="love" onmouseover="hoverReaction(this);" onmouseout="unhoverReaction(this);" />
+                    <img id="hahaReaction" class="reactionBar-button" src="./images/reaction/haha.png" alt="Haha" title="haha" onmouseover="hoverReaction(this);" onmouseout="unhoverReaction(this);" />
+                    <img id="wowReaction" class="reactionBar-button" src="./images/reaction/wow.png" alt="Wow" title="wow" onmouseover="hoverReaction(this);" onmouseout="unhoverReaction(this);" />
+                    <img id="cryReaction" class="reactionBar-button" src="./images/reaction/cry.png" alt="Cry" title="cry" onmouseover="hoverReaction(this);" onmouseout="unhoverReaction(this);" />
+                    <img id="angryReaction" class="reactionBar-button" src="./images/reaction/angry.png" alt="Angry" title="angry" onmouseover="hoverReaction(this);" onmouseout="unhoverReaction(this);" />
                 </div>
                 <div id="mainStory-navigation">
                     <a id="goBackward" class="navigation-button" onclick="move(-1)">&#10094;</a>
@@ -107,6 +111,39 @@
                 <div id="mainStory-close">
                     <a id="closeButton" onclick="closeStory()">&#10799;</a>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="bugWarning" class="notification">
+        <div class="notification-box">
+            <div class="notification-title">
+                View Story?
+            </div>
+            <div class="notification-line"></div>
+            <div class="notification-content">
+                View this story though it's still bug?
+            </div>
+            <div class="notification-button">
+                <button id="confirmView" class="confirmBtn" onclick="confirmView()">View</button>
+                <button id="cancelView" class="cancelBtn" onclick="cancelBtn()">Cancel</button>
+            </div>
+        </div>
+        <input type="text" id="hidenValue" name="hidenValue" value="" />
+    </div>
+
+    <div id="hideWarning" class="notification">
+        <div class="notification-box">
+            <div class="notification-title">
+                Hide Story?
+            </div>
+            <div class="notification-line"></div>
+            <div class="notification-content">
+                Hide this story from your gallery?
+            </div>
+            <div class="notification-button">
+                <button id="confirmHide" class="confirmBtn" onclick="confirmHide()">Hide</button>
+                <button id="cancelHide" class="cancelBtn" onclick="cancelBtn()">Cancel</button>
             </div>
         </div>
     </div>

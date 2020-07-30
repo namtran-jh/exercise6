@@ -8,7 +8,8 @@ const data = [{
         link: "./images/news/smile.png",
         status: 0
     }],
-    status: 0
+    bug: { status: 0, initial: 0 },
+    status: 1
 }, {
     id: 1,
     name: "Uzumaki Naruto",
@@ -27,6 +28,7 @@ const data = [{
         link: "./images/news/smile.png",
         status: 1
     }, ],
+    bug: { status: 0, initial: 0 },
     status: 1
 }, {
     id: 2,
@@ -38,6 +40,7 @@ const data = [{
         link: "./images/news/human.png",
         status: 1
     }],
+    bug: { status: 0, initial: 0 },
     status: 1
 }, {
     id: 3,
@@ -53,6 +56,7 @@ const data = [{
         link: "./images/news/human.png",
         status: 1
     }],
+    bug: { status: 0, initial: 0 },
     status: 1
 }, {
     id: 4,
@@ -64,6 +68,7 @@ const data = [{
         link: "./images/news/love.png",
         status: 1
     }],
+    bug: { status: 0, initial: 0 },
     status: 1
 }, {
     id: 5,
@@ -75,6 +80,7 @@ const data = [{
         link: "./images/news/shit.png",
         status: 1
     }],
+    bug: { status: 0, initial: 0 },
     status: 1
 }, {
     id: 6,
@@ -94,6 +100,7 @@ const data = [{
         link: "./images/news/shit.png",
         status: 1
     }],
+    bug: { status: 0, initial: 0 },
     status: 1
 }, {
     id: 7,
@@ -109,6 +116,7 @@ const data = [{
         link: "./images/news/shit.png",
         status: 1
     }],
+    bug: { status: 0, initial: 0 },
     status: 1
 }, {
     id: 8,
@@ -120,6 +128,7 @@ const data = [{
         link: "./images/news/smile.png",
         status: 1
     }],
+    bug: { status: 0, initial: 0 },
     status: 1
 }, {
     id: 9,
@@ -131,6 +140,7 @@ const data = [{
         link: "./images/news/human.png",
         status: 1
     }],
+    bug: { status: 0, initial: 0 },
     status: 1
 }, {
     id: 10,
@@ -146,5 +156,6 @@ const data = [{
         link: "./images/news/human.png",
         status: 1
     }],
+    bug: { status: 0, initial: 0 },
     status: 1
 }]
