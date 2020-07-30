@@ -155,7 +155,7 @@ function changeStory(id, order) {
             setAnimation();
             setGlobal(tmp, step);
             setDocumentStory(tmp, step);
-            // start(step);
+            start(step);
         }
     }
 }
