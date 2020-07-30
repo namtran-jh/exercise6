@@ -184,6 +184,7 @@ function setGlobal(story, step) {
     storyGlobal.id = story.news[step].id;
     storyGlobal.link = story.news[step].link;
     storyGlobal.status = story.news[step].status;
+    storyGlobal.width = story.news[step].width;
 }
 
 // Function set document UI
@@ -273,16 +274,23 @@ function stop() {
 
 // Function auto
 function start() {
-    // Loading bar
     clearInterval(loadingBarInterval);
+    clearInterval(modeInterval);
+
     let width, time;
-    if (storyGlobal.width === 100) {
+    if (storyGlobal.width === 100 || storyGlobal.width === 0) {
         width = 0;
         time = 50;
     } else {
         width = reassignWidth();
-        time = (100 - width) * 50 / 100;
+        time = ((100 - width) * 50 / 100);
     }
+
+    modeSwitch.type = startMode;
+
+    // console.log({ width, time });
+
+    // Loading bar
     loadingBarInterval = setInterval(function() {
         for (let i = 1; i < storyGlobal.id; i++) {
             document.getElementById("loading" + i).getElementsByClassName("loadingBar-bg")[0].style.width = '100%';
@@ -291,14 +299,12 @@ function start() {
             clearInterval(loadingBarInterval);
         } else {
             width++;
-            data[accountGlobal.id].news[storyGlobal.id - 1].width = width;
+            storyGlobal.width = data[accountGlobal.id].news[storyGlobal.id - 1].width = width;
             document.getElementById("loading" + storyGlobal.id).getElementsByClassName("loadingBar-bg")[0].style.width = width + '%';
         }
-    }, time)
+    }, 50)
 
     // Story
-    clearInterval(modeInterval);
-    modeSwitch.type = startMode;
     modeInterval = setInterval(function() {
         move(1);
     }, time * 100)
