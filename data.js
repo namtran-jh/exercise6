@@ -6,7 +6,8 @@ const data = [{
     news: [{
         id: 1,
         link: "./images/news/smile.png",
-        status: 0
+        status: 1,
+        width: 0
     }],
     bug: { status: 0, initial: 0 },
     status: 1
@@ -18,15 +19,18 @@ const data = [{
     news: [{
         id: 1,
         link: "./images/news/love.png",
-        status: 1
+        status: 1,
+        width: 0
     }, {
         id: 2,
         link: "./images/news/shit.png",
-        status: 1
+        status: 1,
+        width: 0
     }, {
         id: 3,
         link: "./images/news/smile.png",
-        status: 1
+        status: 1,
+        width: 0
     }, ],
     bug: { status: 0, initial: 0 },
     status: 1
@@ -38,7 +42,8 @@ const data = [{
     news: [{
         id: 1,
         link: "./images/news/human.png",
-        status: 1
+        status: 1,
+        width: 0
     }],
     bug: { status: 0, initial: 0 },
     status: 1
@@ -50,11 +55,13 @@ const data = [{
     news: [{
         id: 1,
         link: "./images/news/shit.png",
-        status: 1
+        status: 1,
+        width: 0
     }, {
         id: 2,
         link: "./images/news/human.png",
-        status: 1
+        status: 1,
+        width: 0
     }],
     bug: { status: 0, initial: 0 },
     status: 1
@@ -66,7 +73,8 @@ const data = [{
     news: [{
         id: 1,
         link: "./images/news/love.png",
-        status: 1
+        status: 1,
+        width: 0
     }],
     bug: { status: 0, initial: 0 },
     status: 1
@@ -78,7 +86,8 @@ const data = [{
     news: [{
         id: 1,
         link: "./images/news/shit.png",
-        status: 1
+        status: 1,
+        width: 0
     }],
     bug: { status: 0, initial: 0 },
     status: 1
@@ -90,15 +99,18 @@ const data = [{
     news: [{
         id: 1,
         link: "./images/news/human.png",
-        status: 1
+        status: 1,
+        width: 0
     }, {
         id: 2,
         link: "./images/news/love.png",
-        status: 1
+        status: 1,
+        width: 0
     }, {
         id: 3,
         link: "./images/news/shit.png",
-        status: 1
+        status: 1,
+        width: 0
     }],
     bug: { status: 0, initial: 0 },
     status: 1
@@ -110,11 +122,13 @@ const data = [{
     news: [{
         id: 1,
         link: "./images/news/love.png",
-        status: 1
+        status: 1,
+        width: 0
     }, {
         id: 2,
         link: "./images/news/shit.png",
-        status: 1
+        status: 1,
+        width: 0
     }],
     bug: { status: 0, initial: 0 },
     status: 1
@@ -126,7 +140,8 @@ const data = [{
     news: [{
         id: 1,
         link: "./images/news/smile.png",
-        status: 1
+        status: 1,
+        width: 0
     }],
     bug: { status: 0, initial: 0 },
     status: 1
@@ -138,7 +153,8 @@ const data = [{
     news: [{
         id: 1,
         link: "./images/news/human.png",
-        status: 1
+        status: 1,
+        width: 0
     }],
     bug: { status: 0, initial: 0 },
     status: 1
@@ -150,11 +166,13 @@ const data = [{
     news: [{
         id: 1,
         link: "./images/news/shit.png",
-        status: 1
+        status: 1,
+        width: 0
     }, {
         id: 2,
         link: "./images/news/human.png",
-        status: 1
+        status: 1,
+        width: 0
     }],
     bug: { status: 0, initial: 0 },
     status: 1

@@ -157,6 +157,7 @@ function changeStory(id, order) {
             setAnimation();
             setGlobal(tmp, step);
             setDocumentStory(tmp, step);
+            widthStoryRestart();
             start(step);
         }
     }
@@ -230,6 +231,22 @@ function setDocumentStory(story, step) {
     }
 }
 
+// Function restart width of every story instead of showing story
+function widthStoryRestart() {
+    data.forEach(val => {
+        if (val.id !== accountGlobal.id) {
+            for (let i = 0; i < val.news.length; i++) {
+                val.news[i].width = 0;
+            }
+        } else {
+            for (let i = 0; i < val.news.length; i++) {
+                if (val.news[i].id !== storyGlobal.id)
+                    val.news[i].width = 0;
+            }
+        }
+    })
+}
+
 // Function move forward or backward (navigation)
 function move(n) {
     if (accountGlobal.news.length === storyGlobal.id && n === 1) {
@@ -256,15 +273,16 @@ function stop() {
 
 // Function auto
 function start() {
-    clearInterval(modeInterval);
-    modeSwitch.type = startMode;
-    // let tmp = mainImage.id
-    modeInterval = setInterval(function() {
-        move(1);
-    }, 5000)
-
+    // Loading bar
     clearInterval(loadingBarInterval);
-    let width = 0;
+    let width, time;
+    if (storyGlobal.width === 100) {
+        width = 0;
+        time = 50;
+    } else {
+        width = reassignWidth();
+        time = (100 - width) * 50 / 100;
+    }
     loadingBarInterval = setInterval(function() {
         for (let i = 1; i < storyGlobal.id; i++) {
             document.getElementById("loading" + i).getElementsByClassName("loadingBar-bg")[0].style.width = '100%';
@@ -273,13 +291,25 @@ function start() {
             clearInterval(loadingBarInterval);
         } else {
             width++;
+            data[accountGlobal.id].news[storyGlobal.id - 1].width = width;
             document.getElementById("loading" + storyGlobal.id).getElementsByClassName("loadingBar-bg")[0].style.width = width + '%';
         }
-    }, 50)
+    }, time)
+
+    // Story
+    clearInterval(modeInterval);
+    modeSwitch.type = startMode;
+    modeInterval = setInterval(function() {
+        move(1);
+    }, time * 100)
 }
 
-// Catch onClick event
-document.getElementById("mainStory-reactionBar").onclick = function() { stop(); }
+// Function reassign story width
+function reassignWidth() {
+    return data[accountGlobal.id].news[storyGlobal.id - 1].width;
+}
+
+// Catch onClick event of showing story
 document.getElementById("content-main").onclick = function() { start(); }
 
 // Function change source image when hover
@@ -331,7 +361,7 @@ document.getElementById("mainStory-reactionBar").onclick = function() {
         storyMenu.button = !storyMenu.button;
         document.getElementById("storyMenu").style.display = "none";
     }
-    start();
+    stop();
 }
 
 // Onclick cancel notification box
