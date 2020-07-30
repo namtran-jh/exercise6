@@ -72,7 +72,7 @@ function restartUI() {
     renderUI();
 
     data.forEach(val => {
-        if (val.bug.initial === 1) {
+        if (val.bug.initial === 1 && val.status === 1) {
             document.getElementById(`story${val.id}-itemBug`).style.display = "flex";
             document.getElementById(`story${val.id}`).getElementsByClassName("story-itemAvatar")[0].classList.add("storyBug");
         }
@@ -129,7 +129,8 @@ function changeStory(id, order) {
 
     data.some(val => {
         if (val.id === id) {
-            tmp = val;
+            if (val.status === 1) tmp = val;
+            else tmp = data[id + 1];
             val.news.some((val, index) => {
                 if (val.id === order) {
                     step = index;
@@ -140,7 +141,7 @@ function changeStory(id, order) {
         }
     })
 
-    if (tmp.bug.status === 1) {
+    if (tmp.id != null && tmp.bug.status === 1) {
         setGlobal(tmp, step);
         document.getElementById("hidenValue").value = accountGlobal.id;
         document.getElementById("bugWarning").style.display = "flex";
@@ -339,7 +340,7 @@ function cancelBtn() {
 
     let id = parseInt(document.getElementById("hidenValue").value);
     if (data[id].bug.status === 1) {
-        stop();
+        changeStory(id + 1, 1);
     } else {
         start();
     }
@@ -384,7 +385,6 @@ function storyReaction(str) {
     else react.style.top = `${top}px`;
     react.style.left = `${left}px`;
     react.src = `./images/reaction/${str}.gif`;
-    console.log(react.style.top)
     document.getElementById("mainStory-content").appendChild(react);
     setTimeout(function() {
         if (document.getElementsByClassName("reactionBar-button").length > 0) {
