@@ -382,6 +382,12 @@ p {
     border-radius: 50%;
 }
 
+@media screen and (max-width: 1366px) {
+    #content-main {
+        width: 300px;
+    }
+}
+
 #main-image {
     width: 100%;
     border-radius: 10px;
